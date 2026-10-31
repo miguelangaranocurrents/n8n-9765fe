@@ -120,7 +120,14 @@ export class ExecutionData implements INodeType {
 
 					const values = dataToSave.reduce(
 						(acc, { key, value }) => {
-							const valueToSet = value ? value : nodeVersion >= 1.1 ? '' : value;
+							// Expressions can resolve to booleans or numbers (e.g. `={{ true }}`, `={{ 0 }}`),
+							// so convert everything that is set to a string before saving it
+							const valueToSet =
+								value === undefined || value === null
+									? nodeVersion >= 1.1
+										? ''
+										: value
+									: String(value);
 							acc[key] = valueToSet;
 							return acc;
 						},
