@@ -114,8 +114,8 @@ export const coloringStateField = StateField.define<DecorationSet>({
 					const decoration = resolvableStateToDecoration[txEffect.value.state ?? 'pending'];
 
 					// Empty ranges (e.g. a resolvable that evaluates to '') cannot carry a mark decoration.
-						// Creating one throws, which would drop the remaining effects in this transaction.
-						if (txEffect.value.from >= txEffect.value.to) continue;
+					// Creating one throws, which would drop the remaining effects in this transaction.
+					if (txEffect.value.from >= txEffect.value.to) continue;
 
 					colorings = colorings.update({
 						add: [decoration.range(txEffect.value.from, txEffect.value.to)],
