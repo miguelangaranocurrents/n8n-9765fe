@@ -547,6 +547,7 @@ workflowInputs: {
 
 				return workflowResult;
 			} catch (error) {
+				console.log('DBG_EWF_SINGLE', error.message, error.stack);
 				const pairedItem = generatePairedItemData(items.length);
 				if (this.continueOnFail()) {
 					const metadata = parseErrorMetadata(error);
