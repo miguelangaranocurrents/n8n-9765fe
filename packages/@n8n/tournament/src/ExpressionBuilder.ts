@@ -149,6 +149,14 @@ const fixStringNewLines = (node: types.namedTypes.File): types.namedTypes.File =
 			);
 			path.replace(el);
 		},
+		// Rebuild the literal instead of letting recast patch the original source. Patching
+		// splices the single-line replacement quasis into multi-line original text and adds
+		// stray spaces, so the literal is printed from scratch.
+		visitTemplateLiteral(path) {
+			this.traverse(path);
+			path.replace(b.templateLiteral(path.node.quasis, path.node.expressions));
+			return false;
+		},
 	});
 
 	return node;
