@@ -17,8 +17,6 @@ export class FunctionEvaluator implements ExpressionEvaluator {
 
 	evaluate(expr: string, data: unknown): ReturnValue {
 		const fn = this.getFunction(expr);
-		const DBG_result = fn.call(data, this.instance.errorHandler);
-		if (expr.includes('chk_')) console.log('DBG_EVAL', JSON.stringify(expr), this.instance.getExpressionCode(expr)[0], JSON.stringify(DBG_result));
-		return DBG_result;
+		return fn.call(data, this.instance.errorHandler);
 	}
 }
